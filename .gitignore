@@ -1,0 +1,17 @@
+*.vscode
+*temporal_uwb/build
+uwb/build
+uwb/devel
+uwb/src/uwb_eval/scripts/test.py
+report.log
+*.oct
+Thesis-*
+Thesis.a*
+Thesis.b*
+Thesis.i*
+Thesis.l*
+Thesis.o*
+Thesis.s*
+Thesis.toc
+*.bag
+*.rxp
