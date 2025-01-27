@@ -1,0 +1,20 @@
+<launch>
+  <!-- Load the configuration file -->
+  <rosparam command="load" file="$(find volksbot)/launch/config/parameters.yaml" /> 
+  <node pkg="tf" type="static_transform_publisher" name="rieglcali" args="-0.135 0 0.4325 2.0943951 0 0 base_link riegl 100"/>
+
+  <node pkg="riegl" name="rieglctr" type="ctr" respawn="true"/>
+  
+  <!--  Logging for assembling/calibrating scans afterwards -->
+  <node pkg="riegl" name="rxploggersingle" type="rxploggersingle" />
+  <node pkg="rclock" type="timepublisher" name="timepublisher"/>
+  <node pkg="riegl" name="tslogger" type="tslogger" />
+  <!-- node pkg="bag2scans" name="record" type="record" / -->
+  <node pkg="riegl" name="receiverESA" type="receiverESA" />
+
+  <!-- Use this part if you want to write scans online
+  <node pkg="riegl" name="rxploggersingle" type="rxploggersingle" />
+  <node pkg="riegl" name="scanassembler" type="assembler"/>
+  -->
+
+</launch>

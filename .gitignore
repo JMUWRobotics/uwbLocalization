@@ -1,8 +1,8 @@
 *.vscode
-*temporal_uwb/build
-uwb/build
-uwb/devel
-uwb/src/uwb_eval/scripts/test.py
+*embedded_uwb/build
+robot/build
+robot/devel
+robot/src/uwb/scripts/test.py
 report.log
 *.oct
 Thesis-*

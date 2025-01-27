@@ -1,0 +1,2 @@
+uint8 numSucResp
+uint32 curWaitTime

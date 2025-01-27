@@ -1,0 +1,3 @@
+# UWB Localization Evaluation Data
+
+In this folder there are multiple octave scripts, that evaluate data from varying system tests. The [scanAnalysis script](scanAnalysis.py) evaluates the .frame files of a Riegl scans, after they are aligned using 3DTK. It also uses tripod.3d files, which represent the point of a tripod, on which an UWB anchor is mounted, in the Riegl scan. The result of the script is the pose of the scans (other than the first one, which is always done at the start of a run) and the position of the UWB anchors in the global coordinate frame.

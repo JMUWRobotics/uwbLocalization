@@ -1,0 +1,80 @@
+<launch>
+	<!-- Arguments -->
+	<arg name="useRiegl" default="false" />
+	<arg name="useUwb" default="false" />
+	<arg name="useHectorMapping" default="false" />
+
+	<!-- Arguments for rosserial_server -->
+	<arg name="numberPorts" default="3" />
+	<arg name="port0" default="/dev/UWB-back" />
+	<arg name="port1" default="/dev/UWB-front-right" />
+	<arg name="port2" default="/dev/UWB-front-left" />
+	<arg name="baud" default="115200" />
+
+	<!-- Arguments for hector_mapping -->
+	<arg name="pub_map_odom_transform" default="true"/>
+	<arg name="base_frame" default="base_link"/>
+	<arg name="odom_frame" default="odom_combined"/>
+	<arg name="scan_topic" default="LMS"/>
+	<arg name="map_frame" default="map"/>
+
+	<!-- Load the configuration file -->
+	<rosparam command="load" file="$(find volksbot)/launch/config/parameters.yaml" /> 
+
+	<!-- Load calibration components -->
+	<include file="$(find volksbot)/launch/parts/localcalibration.launch" />
+
+	<!-- Essential volksbot stuff -->
+	<node pkg="volksbot" name="volksbot" type="volksbot" />
+	<node pkg="volksbot" name="odometry" type="odometry" args="1"/>
+
+	<!-- Sick-Laser Scanner -->
+	<node pkg="lms100" name="sick_front" type="sicksensor" />
+
+	<!-- rviz -->
+	<!-- <node name="rviz" pkg="rviz" type="rviz" output="screen">
+		<param name="display-config" value="$(find uwb)/uwb.rviz" />
+	</node> -->
+
+	<!-- turtlesim visualization -->
+	<node pkg="turtlesim_representation" name="turtleVisualization" type="scenario.py" output="screen" />
+
+	<!-- Joystick Launch -->
+	<node pkg="volksbot" name="joystick_control" type="jscontrol"/>
+
+	<group if="$(arg useRiegl)">
+		<!-- Riegl Scanner -->
+		<node pkg="riegl" name="rieglctr" type="ctr" respawn="true"/>
+
+		<!--  Logging for assembling/calibrating scans afterwards -->
+		<node pkg="riegl" name="rxploggersingle" type="rxploggersingle" />
+		<node pkg="rclock" type="timepublisher" name="timepublisher"/>
+		<node pkg="riegl" name="tslogger" type="tslogger" />
+		<!-- <node pkg="bag2scans" name="record" type="record" /> -->
+		<node pkg="riegl" name="receiverESA" type="receiverESA" />
+	</group>
+
+	<!-- Uwb connection via rosserial -->
+	<group if="$(arg useUwb)">
+		<include file="$(find rosserial_server)/launch/serial.launch" >
+			<arg name="numberPorts" value="$(arg numberPorts)"/>
+			<arg name="port0" value="$(arg port0)"/>
+			<arg name="port1" value="$(arg port1)"/>
+			<arg name="port2" value="$(arg port2)"/>
+			<arg name="baud" value="$(arg baud)"/>
+		</include>
+		<include file="$(find uwb)/launch/ekf.launch" />
+	</group>
+
+	<!-- hector_mapping for ground-truth -->
+	<group if="$(arg useHectorMapping)">
+		<include file="$(find hector_mapping)/launch/mapping_default.launch">
+			<arg name="pub_map_odom_transform" value="$(arg pub_map_odom_transform)"/>
+			<arg name="base_frame" value="$(arg base_frame)"/>
+			<arg name="odom_frame" value="$(arg odom_frame)"/>
+			<arg name="scan_topic" value="$(arg scan_topic)"/>
+			<!-- <arg name="map_frame" value="$(arg map_frame)"/> -->
+		</include>
+	</group>
+
+</launch>

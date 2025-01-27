@@ -1,0 +1,3 @@
+ACTION=="add", ATTRS{serial}=="AM00EZO7", SYMLINK+="UWB-back"
+ACTION=="add", ATTRS{serial}=="AM00EZO9", SYMLINK+="UWB-front-right"
+ACTION=="add", ATTRS{serial}=="AM00F08G", SYMLINK+="UWB-front-left"

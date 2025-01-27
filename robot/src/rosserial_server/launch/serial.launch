@@ -1,0 +1,19 @@
+<launch>
+  <arg name="numberPorts" default="3" />
+  <arg name="port0" default="/dev/UWB-back" />
+  <arg name="port1" default="/dev/UWB-front-right" />
+  <arg name="port2" default="/dev/UWB-front-left" />
+  <arg name="baud" default="115200" />
+  <node pkg="rosserial_server" type="serial_node" name="rosserial_server0" output="screen">
+    <param name="port" value="$(arg port0)" />
+    <param name="baud" value="$(arg baud)" />
+  </node>
+  <node pkg="rosserial_server" type="serial_node" name="rosserial_server1" output="screen" if="$(eval arg('numberPorts') >= 2)">
+    <param name="port" value="$(arg port1)" />
+    <param name="baud" value="$(arg baud)" />
+  </node>
+  <node pkg="rosserial_server" type="serial_node" name="rosserial_server2" output="screen" if="$(eval arg('numberPorts') >= 3)">
+    <param name="port" value="$(arg port2)" />
+    <param name="baud" value="$(arg baud)" />
+  </node>
+</launch>

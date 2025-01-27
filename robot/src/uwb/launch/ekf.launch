@@ -1,0 +1,151 @@
+<launch>
+	<arg name="evalOnly" default="false" />
+	<group unless="$(arg evalOnly)">
+		<node pkg="uwb" name="ekf0_0001" type="ekfSlam.py" output="screen">
+			<remap from="/ekf/pos" to="/ekf0_0001/pos"/>
+			<remap from="/ekf/cov" to="/ekf0_0001/cov"/>
+			<param name="useInterAnchor" type="bool" value="false" />
+			<param name="distanceVar" type="double" value="0.005" />
+			<param name="anchorVar" type="double" value="0.0001" />
+		</node>
+		<node pkg="uwb" name="ekf0_01" type="ekfSlam.py" output="screen">
+			<remap from="/ekf/pos" to="/ekf0_01/pos"/>
+			<remap from="/ekf/cov" to="/ekf0_01/cov"/>
+			<param name="useInterAnchor" type="bool" value="false" />
+			<param name="distanceVar" type="double" value="0.005" />
+			<param name="anchorVar" type="double" value="0.01" />
+		</node>
+		<node pkg="uwb" name="ekf1" type="ekfSlam.py" output="screen">
+			<remap from="/ekf/pos" to="/ekf1/pos"/>
+			<remap from="/ekf/cov" to="/ekf1/cov"/>
+			<param name="useInterAnchor" type="bool" value="false" />
+			<param name="distanceVar" type="double" value="0.005" />
+			<param name="anchorVar" type="double" value="1" />
+		</node>
+		<node pkg="uwb" name="ekf100" type="ekfSlam.py" output="screen">
+			<remap from="/ekf/pos" to="/ekf100/pos"/>
+			<remap from="/ekf/cov" to="/ekf100/cov"/>
+			<param name="useInterAnchor" type="bool" value="false" />
+			<param name="distanceVar" type="double" value="0.005" />
+			<param name="anchorVar" type="double" value="100" />
+		</node>
+		<node pkg="uwb" name="ekf1_1" type="ekfSlam.py" output="screen">
+			<remap from="/ekf/pos" to="/ekf1_1/pos"/>
+			<remap from="/ekf/cov" to="/ekf1_1/cov"/>
+			<param name="useInterAnchor" type="bool" value="true" />
+			<param name="distanceVar" type="double" value="0.001" />
+			<param name="anchorVar" type="double" value="1" />
+		</node>
+		<node pkg="uwb" name="ekf1_5" type="ekfSlam.py" output="screen">
+			<remap from="/ekf/pos" to="/ekf1_5/pos"/>
+			<remap from="/ekf/cov" to="/ekf1_5/cov"/>
+			<param name="useInterAnchor" type="bool" value="true" />
+			<param name="distanceVar" type="double" value="0.005" />
+			<param name="anchorVar" type="double" value="1" />
+		</node>
+		<node pkg="uwb" name="ekf1_50" type="ekfSlam.py" output="screen">
+			<remap from="/ekf/pos" to="/ekf1_50/pos"/>
+			<remap from="/ekf/cov" to="/ekf1_50/cov"/>
+			<param name="useInterAnchor" type="bool" value="true" />
+			<param name="distanceVar" type="double" value="0.05" />
+			<param name="anchorVar" type="double" value="1" />
+		</node>
+		<node pkg="uwb" name="ekf1_500" type="ekfSlam.py" output="screen">
+			<remap from="/ekf/pos" to="/ekf1_500/pos"/>
+			<remap from="/ekf/cov" to="/ekf1_500/cov"/>
+			<param name="useInterAnchor" type="bool" value="true" />
+			<param name="distanceVar" type="double" value="0.5" />
+			<param name="anchorVar" type="double" value="1" />
+		</node>
+	</group>
+
+	<group unless="$(arg evalOnly)">
+		<node pkg="uwb" name="onlyUwbPoseEst0_0001" type="onlyUwbPoseEst.py" output="screen">
+			<remap from="/ekf/pos" to="/ekf0_0001/pos"/>
+			<remap from="/uwb/pos" to="/uwb0_0001/pos"/>
+		</node>
+		<node pkg="uwb" name="onlyUwbPoseEst0_01" type="onlyUwbPoseEst.py" output="screen">
+			<remap from="/ekf/pos" to="/ekf0_01/pos"/>
+			<remap from="/uwb/pos" to="/uwb0_01/pos"/>
+		</node>
+		<node pkg="uwb" name="onlyUwbPoseEst1" type="onlyUwbPoseEst.py" output="screen">
+			<remap from="/ekf/pos" to="/ekf1/pos"/>
+			<remap from="/uwb/pos" to="/uwb1/pos"/>
+		</node>
+		<node pkg="uwb" name="onlyUwbPoseEst100" type="onlyUwbPoseEst.py" output="screen">
+			<remap from="/ekf/pos" to="/ekf100/pos"/>
+			<remap from="/uwb/pos" to="/uwb100/pos"/>
+		</node>
+		<node pkg="uwb" name="onlyUwbPoseEst1_1" type="onlyUwbPoseEst.py" output="screen">
+			<remap from="/ekf/pos" to="/ekf1_1/pos"/>
+			<remap from="/uwb/pos" to="/uwb1_1/pos"/>
+		</node>
+		<node pkg="uwb" name="onlyUwbPoseEst1_5" type="onlyUwbPoseEst.py" output="screen">
+			<remap from="/ekf/pos" to="/ekf1_5/pos"/>
+			<remap from="/uwb/pos" to="/uwb1_5/pos"/>
+		</node>
+		<node pkg="uwb" name="onlyUwbPoseEst1_50" type="onlyUwbPoseEst.py" output="screen">
+			<remap from="/ekf/pos" to="/ekf1_50/pos"/>
+			<remap from="/uwb/pos" to="/uwb1_50/pos"/>
+		</node>
+		<node pkg="uwb" name="onlyUwbPoseEst1_500" type="onlyUwbPoseEst.py" output="screen">
+			<remap from="/ekf/pos" to="/ekf1_500/pos"/>
+			<remap from="/uwb/pos" to="/uwb1_500/pos"/>
+		</node>
+	</group>
+
+	<node pkg="uwb" name="evalEKF0_0001" type="evalEKF.py" output="screen">
+		<remap from="/ekf/pos" to="/ekf0_0001/pos"/>
+		<remap from="/ekf/cov" to="/ekf0_0001/cov"/>
+		<remap from="/uwb/pos" to="/uwb0_0001/pos"/>
+		<param name="filenameExt" type="string" value="0_0001" />
+	</node>
+	<node pkg="uwb" name="evalEKF0_01" type="evalEKF.py" output="screen">
+		<remap from="/ekf/pos" to="/ekf0_01/pos"/>
+		<remap from="/ekf/cov" to="/ekf0_01/cov"/>
+		<remap from="/uwb/pos" to="/uwb0_01/pos"/>
+		<param name="filenameExt" type="string" value="0_01" />
+	</node>
+	<node pkg="uwb" name="evalEKF1" type="evalEKF.py" output="screen">
+		<remap from="/ekf/pos" to="/ekf1/pos"/>
+		<remap from="/ekf/cov" to="/ekf1/cov"/>
+		<remap from="/uwb/pos" to="/uwb1/pos"/>
+		<param name="filenameExt" type="string" value="1" />
+	</node>
+	<node pkg="uwb" name="evalEKF100" type="evalEKF.py" output="screen">
+		<remap from="/ekf/pos" to="/ekf100/pos"/>
+		<remap from="/ekf/cov" to="/ekf100/cov"/>
+		<remap from="/uwb/pos" to="/uwb100/pos"/>
+		<param name="filenameExt" type="string" value="100" />
+	</node>
+	<node pkg="uwb" name="evalEKF1_1" type="evalEKF.py" output="screen">
+		<remap from="/ekf/pos" to="/ekf1_1/pos"/>
+		<remap from="/ekf/cov" to="/ekf1_1/cov"/>
+		<remap from="/uwb/pos" to="/uwb1_1/pos"/>
+		<param name="filenameExt" type="string" value="1_1" />
+	</node>
+	<node pkg="uwb" name="evalEKF1_5" type="evalEKF.py" output="screen">
+		<remap from="/ekf/pos" to="/ekf1_5/pos"/>
+		<remap from="/ekf/cov" to="/ekf1_5/cov"/>
+		<remap from="/uwb/pos" to="/uwb1_5/pos"/>
+		<param name="filenameExt" type="string" value="1_5" />
+	</node>
+	<node pkg="uwb" name="evalEKF1_50" type="evalEKF.py" output="screen">
+		<remap from="/ekf/pos" to="/ekf1_50/pos"/>
+		<remap from="/ekf/cov" to="/ekf1_50/cov"/>
+		<remap from="/uwb/pos" to="/uwb1_50/pos"/>
+		<param name="filenameExt" type="string" value="1_50" />
+	</node>
+	<node pkg="uwb" name="evalEKF1_500" type="evalEKF.py" output="screen">
+		<remap from="/ekf/pos" to="/ekf1_500/pos"/>
+		<remap from="/ekf/cov" to="/ekf1_500/cov"/>
+		<remap from="/uwb/pos" to="/uwb1_500/pos"/>
+		<param name="filenameExt" type="string" value="1_500" />
+	</node>
+
+	<group unless="$(arg evalOnly)">
+		<node pkg="uwb" name="anchorPosDeterm" type="anchorPosDeterm.py" output="screen"/>
+	</group>
+
+	<node pkg="uwb" name="evalAnchorPoints" type="evalAnchorPoints.py" output="screen"/>
+</launch>

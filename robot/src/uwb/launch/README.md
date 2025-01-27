@@ -1,0 +1,3 @@
+# EKF Launch
+
+This launch file starts all nodes relevant for the localization and its evaluation. This includes the anchor position determination, the EKF, the only UWB localization and the two evaluation scripts. There is an argument `evalOnly` (default:`false`), which, if set, only launches the two evaluation scripts. All files that interact with the EKF are launched 8 times in parallel with varying parameters of the EKF.

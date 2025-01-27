@@ -1,0 +1,7 @@
+<launch>
+    <node pkg="riegl_scan_retriever" name="riegl_scan_retriever" type="riegl_scan_retriever_node" output="screen">
+        <param name="ip" value="127.0.0.1"/>
+        <param name="rate" value="10000"/>
+        <param name="scan_dir" value="/home/lant/dat/"/>
+    </node>
+</launch>
