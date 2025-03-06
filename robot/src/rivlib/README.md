@@ -1,0 +1,1 @@
+Please obtain the rivilib from Riegl on their webiste.
